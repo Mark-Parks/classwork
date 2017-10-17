@@ -8,6 +8,62 @@ public class ArraysMain {
 	private String[] values;
 	
 	public ArraysMain() {
+		tuesdayMethods();
+	}
+	
+	private void tuesdayMethods() {
+		int [] orderTest = {1,2,3,4,5,5,5,5,5,5};
+		System.out.println(Arrays.toString(orderTest));
+		System.out.println(longestConsecutiveSequence(orderTest));
+	}
+
+	private int longestConsecutiveSequence(int[] arr) {
+		int count = 1;
+		int max = 1;
+		for(int i = 0; i < arr.length; i++) {
+			while(i + count < arr.length && isConsecutive(subArray(arr,i,count))) {
+				count++;
+			}
+			if(count > max) {
+				max = count;
+			}
+			i = i + count-1;
+			count = 1;
+		}
+		return max;
+	}
+	
+	private boolean isConsecutive(int[] arr) {
+		for(int i = 0; i < arr.length-1; i++) {
+			if(!(arr[i] == arr[i+1]-1)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private void cycleThrough(int[] arr, int n) {
+		for(int i = 0; i < n; i++) {
+			frontToBack(arr);
+		}
+	}
+
+	private void frontToBack(int[] arr) {
+		for(int i = 0; i < arr.length-1; i++) {
+			swap(arr,i,i+1);
+		}
+	}
+
+	private void warmUpMethods() {
+		int [] orderTest = {1,2,3,4,5,6,7,8,9,10};
+		reverseOrder(orderTest);
+		System.out.println(Arrays.toString(orderTest));
+		System.out.println(Arrays.toString(subArray(orderTest,3,4)));
+		
+	}
+	
+	public void cardMethods() {
+
 		suits = new String[4];
 		suits[0] = "Clubs";
 		suits[1] = "Hearts";
@@ -23,6 +79,20 @@ public class ArraysMain {
 		values[10] = "Jack";
 		printDeck();
 		
+		
+	}
+	
+	private int[] subArray(int[] arr, int start, int length) {
+		int[] newArr = new int[length];
+		for(int i = 0; i < length; i++) {
+			newArr[i] = arr[start+i];
+		}
+		return newArr;
+	}
+	private void reverseOrder(int[] arr) {
+		for(int i = 0; i < arr.length/2; i++) {
+			swap(arr,i,arr.length-1-i);
+		}
 	}
 	private String[] printDeck() {
 		String[] deck = new String[52];

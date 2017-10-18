@@ -8,11 +8,45 @@ public class ArraysMain {
 	private String[] values;
 	
 	public ArraysMain() {
-		tuesdayMethods();
+		wednesdayMethods();
 	}
 	
+	private void wednesdayMethods() {
+		int[] diceRolls = new int[10000];
+		populate(diceRolls);
+		int[] data = longestConsecutiveSeqAndIndex(diceRolls);
+		int longest = data[0];
+		System.out.println("The longest sequence is "+longest+" rolls! It happened on roll #"+data[1]+" the sequence was : "+Arrays.toString(subArray(diceRolls, data[1],data[0]))+".");
+	}
+
+	/**
+	* Usually a method returns ONE piece of data
+	* IF we want more then ONE, we can use an array
+	* Like in the function below
+	*/
+	private int[] longestConsecutiveSeqAndIndex(int[] arr) {
+		
+		int[] data = new int[2];
+		
+		data[0] = 1;
+		int count = 1;
+		for(int i = 0; i < arr.length; i++) {
+			while(i + count < arr.length && isConsecutive(subArray(arr,i,count))) {
+				count++;
+			}
+			if(count > data[0]) {
+				data[0] = count;
+				//also index
+				data[1] = i;
+			}
+			i = i + count-1;
+			count = 1;
+		}
+		return data;
+	}
+
 	private void tuesdayMethods() {
-		int [] orderTest = {1,2,3,4,5,5,5,5,5,5};
+		int [] orderTest = {1,2,3,4,5,5,5};
 		System.out.println(Arrays.toString(orderTest));
 		System.out.println(longestConsecutiveSequence(orderTest));
 	}
@@ -35,7 +69,7 @@ public class ArraysMain {
 	
 	private boolean isConsecutive(int[] arr) {
 		for(int i = 0; i < arr.length-1; i++) {
-			if(!(arr[i] == arr[i+1]-1)) {
+			if(arr[i]+1 != arr[i+1]) {
 				return false;
 			}
 		}

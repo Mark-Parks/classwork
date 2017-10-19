@@ -31,7 +31,7 @@ public class ArraysMain {
 		data[0] = 1;
 		int count = 1;
 		for(int i = 0; i < arr.length; i++) {
-			while(i + count < arr.length && isConsecutive(subArray(arr,i,count))) {
+			while(i + count < arr.length && isConsecutive(arr,i,i+count))) {
 				count++;
 			}
 			if(count > data[0]) {
@@ -52,24 +52,25 @@ public class ArraysMain {
 	}
 
 	private int longestConsecutiveSequence(int[] arr) {
-		int count = 1;
 		int max = 1;
+		int count = 1;
 		for(int i = 0; i < arr.length; i++) {
-			while(i + count < arr.length && isConsecutive(subArray(arr,i,count))) {
+			while(i + count < arr.length && 
+					isConsecutive(arr, i, i+count)) {
 				count++;
 			}
 			if(count > max) {
 				max = count;
 			}
-			i = i + count-1;
+			i = i + count-1;//saves time
 			count = 1;
 		}
 		return max;
 	}
 	
-	private boolean isConsecutive(int[] arr) {
-		for(int i = 0; i < arr.length-1; i++) {
-			if(arr[i]+1 != arr[i+1]) {
+	private boolean isConsecutive(int[] arr, int start, int end) {
+		for(int i = start; i < end; i++ ) {
+			if(arr[i] + 1 != arr[i+1]) {
 				return false;
 			}
 		}

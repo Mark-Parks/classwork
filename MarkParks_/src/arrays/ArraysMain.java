@@ -31,7 +31,7 @@ public class ArraysMain {
 		data[0] = 1;
 		int count = 1;
 		for(int i = 0; i < arr.length; i++) {
-			while(i + count < arr.length && isConsecutive(arr,i,i+count))) {
+			while(i + count < arr.length && isConsecutive(arr,i,i+count)) {
 				count++;
 			}
 			if(count > data[0]) {

@@ -9,7 +9,7 @@ public class Thing {
 	}
 
 	public String toString() {
-		return "I am a "+desc+". Whoms't'd've are you?";
+		return desc;
 	}
 	
 }

@@ -3,13 +3,65 @@ package arrays;
 public class ObjectMain {
 
 	public ObjectMain() {
-		Object[] people = new Object[100];
+		Person[] people = new Person[100];
 		populate(people);
-		people[0] = new Thing("Toaster oven");
-		for(Object p: people) {
+		Person[] group = selectGroup(people,100);
+		for(Person p: group) {
+			p.mingle(people);
 			System.out.println(p);
+			p.statYourFriends();
 		}
+	}
 
+	private void analyzeCommonalities(Person[] people, Person[] group) {
+		double averageCommonality = 0;
+		double trials = 500;
+		double trialCount = 0;
+		for(int i = 0; i< trials; i++) {
+			trialCount += countCommonalities(people,group);
+			group = selectGroup(people,10000);
+		}
+		averageCommonality = trialCount/trials;
+		System.out.println("After "+trials+" trials, shuffling "+people.length+" people, on average, "+averageCommonality+" people end up in teh same position where they started.");
+	}
+	
+	
+	private int countCommonalities(Object[] arr1, Object[] arr2) {
+		int count = 0;
+		for(int i = 0; i < arr1.length; i++) {
+			if(arr1[i]==arr2[i]) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	
+	
+	public Person[] selectGroup(Person[] population, int length) {
+		Person[] newGroup = new Person[length];
+		for(int i = 0; i < length; i++) {
+			Person toAdd = randomPerson(population);
+			while(alreadyContains(newGroup, toAdd)) {
+				toAdd = randomPerson(population);
+			}
+			newGroup[i] = toAdd;
+		}
+		return newGroup;
+	}
+	
+	private boolean alreadyContains(Person[] population, Person p) {
+		for(int i = 0; i< population.length; i++) {
+			if(population[i] == p) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private Person randomPerson(Person[] population) {
+		int index = (int)(Math.random()*population.length);
+		return population[index];
 	}
 
 	private void populate(Object[] people) {

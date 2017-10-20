@@ -15,6 +15,7 @@ public class Person {
 	private Borough home;
 	private Hobby hobby;
 	private Person[] friends;
+	private String nickname;
 	
 	public Person(String first, String last, Borough home) {
 		this.firstName = first;
@@ -22,9 +23,51 @@ public class Person {
 		this.home = home;
 		friends = new Person[3];
 		hobby = Hobby.randomHobby();
-		
+		nickname = createNickname(firstName);
 	}
 	
+	
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+
+	/**
+	 * PASS BY VALUE
+	 * the parameters contain values not references
+	 * therefore, the original does not change
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public static String createNickname(String name) {
+		return name.substring(0,secondVowelIndex(name));
+	}
+	
+	private static int secondVowelIndex(String name) {
+		int count = 0;
+		for(int i = 0; i < name.length(); i++) {
+			if(isVowel(name.substring(i, i+1))) {
+				count++;
+			}
+			if(count == 2) return i;
+		}
+		return name.length();
+	}
+
+	private static boolean isVowel(String letter) {
+		if(letter.equals("a")|| letter.equals("e")||letter.equals("i")||letter.equals("o")||letter.equals("u")) return true;
+		return false;
+	}
+
 	public void statYourFriends() {
 		String friendsList = "My friends are ";
 		for(int i = 0; i < friends.length - 1; i++) {
@@ -51,7 +94,7 @@ public class Person {
 	}
 	
 	public String toString() {
-		return "My Name is "+firstName+" "+lastName+" and I am from "+home+".";
+		return "My Name is "+firstName+" "+lastName+". Call me "+nickname+". I am from "+home+".";
 	}
 
 }

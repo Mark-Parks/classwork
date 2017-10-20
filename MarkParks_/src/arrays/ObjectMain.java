@@ -3,13 +3,12 @@ package arrays;
 public class ObjectMain {
 
 	public ObjectMain() {
-		Person[] people = new Person[100];
+		Person[] people = new Person[50];
 		populate(people);
-		Person[] group = selectGroup(people,100);
+		Person[] group = selectGroup(people,50);
 		for(Person p: group) {
 			p.mingle(people);
 			System.out.println(p);
-			p.statYourFriends();
 		}
 	}
 

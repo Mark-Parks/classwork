@@ -5,7 +5,7 @@ public class CaveRoom {
 	private String description;
 	private String directions;// what doors can be used
 	private String contents;//when in room
-	private String defaultContents;//when aint in room
+	private String defaultContents;//when not in room
 	private CaveRoom[] borderingRooms;
 	private Door[] doors;
 	
@@ -55,6 +55,58 @@ public class CaveRoom {
 	}
 	
 	
+	public void enter() {
+		contents = "X";
+	}
+	
+	public void leave() {
+		contents = defaultContents;
+	}
+	//makes doors
+	public void setConnection(int direction, CaveRoom anotherRoom, Door door) {
+		addRoom(direction,anotherRoom,door);
+		anotherRoom.addRoom(oppositeDirection(direction),this,door);
+	}
+	
+	
+	public void addRoom(int dir, CaveRoom caveRoom, Door door) {
+		borderingRooms[dir] = caveRoom;
+		doors[dir] = door;
+		setDirections();//updates
+	}
+
+	public void interpretInput(String input) {
+		while(!isValid(input)){
+			System.out.println("You can only enter 'n','e','s', or 'w'.");
+		}
+		int direction = "nesw".indexOf(input);
+		goToRoom(direction);
+	}
+	
+	private boolean isValid(String input) {
+		String inputChars = "nesw";
+		return inputChars.indexOf(input) != -1 && input.length() == 1;
+	}
+	//where the magic happens
+	public static void setUpCaves() {
+		
+	}
+	
+	public void goToRoom(int direction) {
+		if(borderingRooms[direction] != null && doors[direction] != null && doors[direction].isOpen()){	
+			CaveExplorer.currentRoom.leave();
+			CaveExplorer.currentRoom = borderingRooms[direction];
+			CaveExplorer.currentRoom.enter();
+			CaveExplorer.inventory.updateMap();
+		} else {
+			System.err.println("You can't do that!");
+		}
+	}
+	
+	public static int oppositeDirection(int dir) {
+		return (dir + 2) % 4;
+	}
+
 	public void setDefaultContents(String defaultsContents) {
 		this.defaultContents = defaultsContents;
 	}

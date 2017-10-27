@@ -77,18 +77,35 @@ public class CaveRoom {
 
 	public void interpretInput(String input) {
 		while(!isValid(input)){
-			System.out.println("You can only enter 'n','e','s', or 'w'.");
+			System.out.println("You can only enter 'w','d','s', or 'a'.");
 		}
-		int direction = "nesw".indexOf(input);
+		int direction = "wasd".indexOf(input);
 		goToRoom(direction);
 	}
 	
 	private boolean isValid(String input) {
-		String inputChars = "nesw";
+		String inputChars = "wasd";
 		return inputChars.indexOf(input) != -1 && input.length() == 1;
 	}
 	//where the magic happens
 	public static void setUpCaves() {
+		//size
+		CaveExplorer.caves = new CaveRoom[5][5];
+		CaveRoom[][] c = CaveExplorer.caves;
+		//populate default
+		for(int row = 0; row < c.length; row++) {
+			for(int col = 0; col < c[row].length; col ++) {
+				c[row][col] = new CaveRoom("this cave has cood "+row+","+col);
+			}
+		}
+		//custom
+		
+		//start room
+		CaveExplorer.currentRoom = c[0][1];
+		CaveExplorer.currentRoom.enter();
+		//doors
+		c[0][1].setConnection(SOUTH, c[1][1], new Door());
+		c[1][1].setConnection(EAST, c[1][2], new Door());
 		
 	}
 	

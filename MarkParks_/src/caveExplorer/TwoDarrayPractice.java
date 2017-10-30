@@ -1,0 +1,71 @@
+package caveExplorer;
+
+public class TwoDarrayPractice {
+
+	public static void main(String[] args) {
+		String[][] pic = new String[6][10];
+		for(String[] row: pic) {
+			for(int col = 0; col < row.length; col++) {
+				row[col] = "| _ ";
+			}
+		}
+//		drawHorizontalLine(pic, 2);
+//		drawVerticalLine(pic, 3);
+//		drawSlot(pic, 4, 6);
+//		drawBox(pic,5,8);
+		print(pic);
+	}
+
+	private static void drawBox(String[][] pic, int i, int j) {
+		drawSlot(pic, i , j);
+		drawSlot(pic, i+1, j);
+		drawAt("_",pic,i+1,j);
+		for(int col = j-1; col <= j+1; col++) {
+			drawAt("_",pic,i,j);
+		}
+	}
+
+	private static void drawAt(String string, String[][] pic, int row, int col) {
+		if(row >= 0 && row< pic.length & col >= 0 && col < pic[row].length) {
+			pic[row][col] = string;
+		}
+	}
+
+	private static void drawSlot(String[][] pic, int i, int j) {
+		if(i >=0 && i <pic.length) {
+			if(j == 0) {
+				pic[i][j] = "|";
+				pic[i][j+1]="|";
+			}
+			else if(j == pic[i].length) {
+				pic[i][j] = "|";
+				pic[i][j-1] = "|";
+			}
+			else {
+				pic[i][j+1] = "|";
+				pic[i][j-1]= "|";
+			}
+		}
+	}
+
+	private static void drawVerticalLine(String[][] pic, int col) {
+		for(int i = 0; i < pic.length; i++) {
+			pic[i][col] = "|";
+		}
+	}
+
+	private static void drawHorizontalLine(String[][] pic, int row) {
+		for(int i = 0; i < pic[row].length; i++) {
+			pic[row][i] = "-";
+		}
+	}
+
+	private static void print(String[][] pic) {
+		for(int row = 0; row < pic.length; row++) {
+			for(int col = 0; col < pic[row].length; col++) {
+				System.out.print(pic[row][col]);
+			}
+			System.out.println("");
+		}
+	}
+}

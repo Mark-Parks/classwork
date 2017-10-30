@@ -79,12 +79,12 @@ public class CaveRoom {
 		while(!isValid(input)){
 			System.out.println("You can only enter 'w','d','s', or 'a'.");
 		}
-		int direction = "wasd".indexOf(input);
+		int direction = "wdsa".indexOf(input);
 		goToRoom(direction);
 	}
 	
 	private boolean isValid(String input) {
-		String inputChars = "wasd";
+		String inputChars = "wdsa";
 		return inputChars.indexOf(input) != -1 && input.length() == 1;
 	}
 	//where the magic happens
@@ -150,6 +150,10 @@ public class CaveRoom {
 
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+
+	public Door getDoor(int direction) {
+		return doors[direction];
 	}
 
 }

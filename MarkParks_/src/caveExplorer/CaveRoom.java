@@ -77,15 +77,31 @@ public class CaveRoom {
 
 	public void interpretInput(String input) {
 		while(!isValid(input)){
-			System.out.println("You can only enter 'w','d','s', or 'a'.");
+			printValidMoves();
+			input = CaveExplorer.in.nextLine();
 		}
-		int direction = "wdsa".indexOf(input);
-		goToRoom(direction);
+		int direction = validMoves().indexOf(input);
+		if(direction < 4) {
+			goToRoom(direction);
+		}else {
+			performAction(direction);
+		}
+	}
+	private void performAction(int direction) {
+		CaveExplorer.print("That key does nothing");
+	}
+
+	//to change desc of moves
+	public void printValidMoves() {
+		System.out.println("You can only enter 'w','d','s', or 'a'.");
+	}
+
+	public String validMoves() {
+		return "wdsa";
 	}
 	
 	private boolean isValid(String input) {
-		String inputChars = "wdsa";
-		return inputChars.indexOf(input) != -1 && input.length() == 1;
+		return validMoves().indexOf(input) != -1 && input.length() == 1;
 	}
 	//where the magic happens
 	public static void setUpCaves() {

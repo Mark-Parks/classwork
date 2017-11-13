@@ -25,7 +25,7 @@ public class Animal {
 		return "animal";
 	}
 
-	public Animal(String ddescription, Trait trait1 , Trait trait2) {
+	public Animal(String description, Trait trait1 , Trait trait2) {
 		this.trait1 = trait1;
 		this.trait2 = trait2;
 		while(trait2.equals(trait1)) {

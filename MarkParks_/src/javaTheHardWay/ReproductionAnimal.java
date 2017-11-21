@@ -27,7 +27,7 @@ public class ReproductionAnimal extends RoamingAnimal{
 		maxLitter = 1;
 	}
 	
-	public void setMaxLetterSize(int max) {
+	public void setMaxLitterSize(int max) {
 		this.maxLitter = max;
 	}
 	

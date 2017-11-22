@@ -21,7 +21,7 @@ public class Animal {
 		age = 0;
 	}
 
-	private String getName() {
+	public String getName() {
 		return "animal";
 	}
 

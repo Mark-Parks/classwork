@@ -3,10 +3,19 @@ package algorithims;
 public class RecursionExcersises {
 	
 	 public static void main(String[] args){
-		 solve(4,"A","B","C");
+		solve(4, "A","B","C");
+		//System.out.println(fibonacci(9));
 	 }
 
-	 private static void solve(int n, String start, String help, String end) {
+	 public static int fibonacci(int i) {
+		if( i <= 1) {
+			return 1;
+		}else {
+			return fibonacci(i-1) + fibonacci(i-2);
+		}
+	}
+
+	private static void solve(int n, String start, String help, String end) {
 		if(n==1) {
 			/**THIS IS THE BASE CASE NO MATTER WHAT WHEN A TOWER'S HEIGHT IS 1
 			 * IT MOVES TO THE PILLAR THAT IS NOT DEFINE AS THE PREVIOUS HELP
